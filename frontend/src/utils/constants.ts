@@ -6,6 +6,7 @@ export const PAGE_TITLES: Record<Page, string> = {
   people: "People",
   places: "Places",
   birthdays: "Birthdays",
+  journals: "Diary",
   settings: "Settings",
   help: "Help & FAQ",
 };
@@ -16,6 +17,7 @@ export const PAGE_DESCRIPTIONS: Record<Page, string> = {
   people: "Important people in your life",
   places: "Locations you've visited",
   birthdays: "Important dates to remember",
+  journals: "Capture daily notes, thoughts, and reflections",
   settings: "Customize your experience",
   help: "Get help and support",
 };

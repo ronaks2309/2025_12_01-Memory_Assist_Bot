@@ -1,5 +1,5 @@
 import {
-  PlusIcon,
+  ChatBubbleLeftRightIcon,
   ArchiveBoxIcon,
   Cog6ToothIcon,
   QuestionMarkCircleIcon,
@@ -8,6 +8,7 @@ import {
   UsersIcon,
   MapPinIcon,
   CalendarDaysIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import type { Page, Tooltip } from "../types";
 
@@ -27,7 +28,8 @@ const NAV_ITEMS: Array<{
   label: string;
   tooltip: string;
 }> = [
-  { page: "chat", icon: PlusIcon, label: "Chat", tooltip: "Open Chat" },
+  { page: "chat", icon: ChatBubbleLeftRightIcon, label: "Chat", tooltip: "Open Chat" },
+  { page: "journals", icon: BookOpenIcon, label: "Diary", tooltip: "Your diary & notes" },
   { page: "memories", icon: ArchiveBoxIcon, label: "Memories", tooltip: "Memories" },
   { page: "people", icon: UsersIcon, label: "People", tooltip: "People" },
   { page: "places", icon: MapPinIcon, label: "Places", tooltip: "Places" },

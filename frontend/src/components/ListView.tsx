@@ -1,8 +1,10 @@
 import {
   Cog6ToothIcon,
   QuestionMarkCircleIcon,
+  PencilSquareIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
-import type { Page, Memory, Person, Place, Birthday } from "../types";
+import type { Page, Memory, Person, Place, Birthday, JournalEntry } from "../types";
 
 interface ListViewProps {
   page: Page;
@@ -11,6 +13,8 @@ interface ListViewProps {
   people: Person[];
   places: Place[];
   birthdays: Birthday[];
+  journals: JournalEntry[];
+  onAddJournal: () => void;
 }
 
 export function ListView({
@@ -20,6 +24,8 @@ export function ListView({
   people,
   places,
   birthdays,
+  journals,
+  onAddJournal,
 }: ListViewProps) {
   if (isLoading) {
     return (
@@ -103,6 +109,50 @@ export function ListView({
             </div>
           ))}
         </>
+      )}
+
+      {page === "journals" && (
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <SparklesIcon className="w-5 h-5 text-blue-600" />
+              <div className="text-sm font-semibold text-gray-800">Diary</div>
+            </div>
+            <button
+              onClick={onAddJournal}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 active:scale-95 transition-all"
+            >
+              <PencilSquareIcon className="w-4 h-4" />
+              Add note
+            </button>
+          </div>
+
+          {journals.length === 0 ? (
+            <div className="p-4 bg-white rounded-lg border border-dashed border-gray-300 text-center text-sm text-gray-500">
+              No notes yet. Click "Add note" to start your journal.
+            </div>
+          ) : (
+            journals.map((j) => (
+              <div
+                key={j.id}
+                className="p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all"
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="font-medium text-gray-800">{j.title}</div>
+                  {j.mood && (
+                    <span className="text-xs text-blue-600 bg-blue-50 border border-blue-100 rounded-full px-2 py-0.5">
+                      {j.mood}
+                    </span>
+                  )}
+                </div>
+                <div className="text-xs text-gray-400 mb-2">{j.created_at}</div>
+                <div className="text-sm text-gray-700 leading-relaxed">
+                  {j.content}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       )}
 
       {page === "settings" && (

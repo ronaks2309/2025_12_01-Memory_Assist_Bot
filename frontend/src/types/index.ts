@@ -5,7 +5,7 @@ export type Message = {
   timestamp: string;
 };
 
-export type Page = "chat" | "memories" | "people" | "places" | "birthdays" | "settings" | "help";
+export type Page = "chat" | "memories" | "people" | "places" | "birthdays" | "journals" | "settings" | "help";
 
 export type Tooltip = {
   text: string;
@@ -47,5 +47,13 @@ export type Birthday = {
 export type Conversation = {
   id: number;
   title: string | null;
+  created_at: string;
+};
+
+export type JournalEntry = {
+  id: number;
+  title: string;
+  mood?: string;
+  content: string;
   created_at: string;
 };

@@ -28,8 +28,10 @@ export default function App() {
     people,
     places,
     birthdays,
+    journals,
     isLoading,
     fetchPageData,
+    addJournalEntry,
   } = usePageData();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -71,19 +73,14 @@ export default function App() {
       const convs: Conversation[] = data.conversations ?? [];
       setConversations(convs);
 
-      let nextConversationId: number | null = null;
       setActiveConversationId((current) => {
         if (current && convs.some((c) => c.id === current)) {
-          nextConversationId = current;
           return current;
         }
-        nextConversationId = convs[0]?.id ?? null;
-        return nextConversationId;
+        return convs[0]?.id ?? null;
       });
 
-      if (nextConversationId) {
-        await fetchMessages(nextConversationId);
-      } else {
+      if (!convs[0]) {
         setMessages([]);
       }
     } catch (err) {
@@ -93,11 +90,16 @@ export default function App() {
       setActiveConversationId(null);
       setMessages([]);
     }
-  }, [fetchMessages]);
+  }, []);
 
   useEffect(() => {
     void loadConversations();
   }, [loadConversations]);
+
+  useEffect(() => {
+    if (!activeConversationId) return;
+    void fetchMessages(activeConversationId);
+  }, [activeConversationId, fetchMessages]);
 
   const createConversation = useCallback(async (title?: string) => {
     const res = await fetch(`${BACKEND_URL}/conversations`, {
@@ -237,9 +239,8 @@ export default function App() {
     }
   }
 
-  async function handleSelectConversation(conversationId: number) {
+  function handleSelectConversation(conversationId: number) {
     setActiveConversationId(conversationId);
-    await fetchMessages(conversationId);
   }
 
   async function handleNewConversation() {
@@ -295,6 +296,8 @@ export default function App() {
                 people={people}
                 places={places}
                 birthdays={birthdays}
+                journals={journals}
+                onAddJournal={addJournalEntry}
               />
             </section>
           </>
