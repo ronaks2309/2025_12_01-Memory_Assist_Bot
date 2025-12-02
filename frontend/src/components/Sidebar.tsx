@@ -22,7 +22,7 @@ interface SidebarProps {
   onHideTooltip: () => void;
 }
 
-const NAV_ITEMS: Array<{
+const PRIMARY_NAV: Array<{
   page: Page;
   icon: React.ComponentType<{ className: string }>;
   label: string;
@@ -30,6 +30,14 @@ const NAV_ITEMS: Array<{
 }> = [
   { page: "chat", icon: ChatBubbleLeftRightIcon, label: "Chat", tooltip: "Open Chat" },
   { page: "journals", icon: BookOpenIcon, label: "Diary", tooltip: "Your diary & notes" },
+];
+
+const DERIVED_NAV: Array<{
+  page: Page;
+  icon: React.ComponentType<{ className: string }>;
+  label: string;
+  tooltip: string;
+}> = [
   { page: "memories", icon: ArchiveBoxIcon, label: "Memories", tooltip: "Memories" },
   { page: "people", icon: UsersIcon, label: "People", tooltip: "People" },
   { page: "places", icon: MapPinIcon, label: "Places", tooltip: "Places" },
@@ -133,7 +141,19 @@ export function Sidebar({
       >
         {/* Top controls */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-between">
+            <div className={`flex items-center gap-3 flex-1 min-w-0 ${isOpen ? "pl-3" : ""}`}>
+              {isOpen && (
+                <div>
+                  <div className="text-base font-semibold text-gray-800">
+                    Memory Assist
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Personal memory helper
+                  </div>
+                </div>
+              )}
+            </div>
             <button
               onClick={onToggleSidebar}
               aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
@@ -145,26 +165,34 @@ export function Sidebar({
                 <ChevronRightIcon className="w-5 h-5 text-gray-700" />
               )}
             </button>
-
-              <div className="flex-1">
-                {isOpen && (
-                  <div>
-                    <div className="text-sm font-semibold text-gray-800">
-                      Memory Assist
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Personal memory helper
-                    </div>
-                  </div>
-                )}
-              </div>
           </div>
-
         </div>
 
         {/* Primary nav items */}
         <nav className="flex flex-col gap-2 mt-2">
-          {NAV_ITEMS.map((item) => (
+          {PRIMARY_NAV.map((item) => (
+            <NavButton
+              key={item.page}
+              page={item.page}
+              icon={item.icon}
+              label={item.label}
+              tooltip={item.tooltip}
+              isOpen={isOpen}
+              isActive={currentPage === item.page}
+              onNavigate={onNavigation}
+              onShowTooltip={onShowTooltip}
+              onHideTooltip={onHideTooltip}
+            />
+          ))}
+
+          <div className="border-t border-gray-200 mx-1"></div>
+          {isOpen && (
+            <div className="text-[11px] uppercase tracking-wide text-gray-400 px-3">
+              Insights
+            </div>
+          )}
+
+          {DERIVED_NAV.map((item) => (
             <NavButton
               key={item.page}
               page={item.page}
