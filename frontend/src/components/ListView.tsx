@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Cog6ToothIcon,
   QuestionMarkCircleIcon,
@@ -6,6 +6,9 @@ import {
   SparklesIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  MagnifyingGlassIcon,
+  FunnelIcon,
+  XMarkIcon,
   CalendarDaysIcon,
   PhoneIcon,
   EnvelopeIcon,
@@ -60,6 +63,11 @@ export function ListView({
   const [expandedPersonId, setExpandedPersonId] = useState<number | null>(null);
   const [editingPersonId, setEditingPersonId] = useState<number | null>(null);
   const [editDrafts, setEditDrafts] = useState<Record<number, { bio: string; contact: string }>>({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [classificationFilter, setClassificationFilter] = useState("all");
+  const [relationshipFilter, setRelationshipFilter] = useState("all");
+  const [contactFilter, setContactFilter] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const isPeoplePage = page === "people";
 
@@ -75,6 +83,57 @@ export function ListView({
       setEditingPersonId(null);
     }
   }, [isPeoplePage, people, expandedPersonId]);
+
+  const classificationOptions = useMemo(() => {
+    const set = new Set<string>();
+    people.forEach((p) => {
+      if (p.classification) set.add(p.classification);
+    });
+    return Array.from(set);
+  }, [people]);
+
+  const relationshipOptions = useMemo(() => {
+    const set = new Set<string>();
+    people.forEach((p) => {
+      if (p.relationship) set.add(p.relationship);
+    });
+    return Array.from(set);
+  }, [people]);
+
+  const contactOptions = useMemo(() => {
+    const set = new Set<string>();
+    people.forEach((p) => {
+      const method = p.preferredContact?.method;
+      if (method) set.add(method);
+    });
+    return Array.from(set);
+  }, [people]);
+
+  const filteredPeople = useMemo(() => {
+    return people.filter((p) => {
+      const matchesSearch =
+        !searchTerm ||
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.headline ?? p.bio ?? "").toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesClassification =
+        classificationFilter === "all" ||
+        (p.classification ?? "").toLowerCase() === classificationFilter.toLowerCase();
+      const matchesRelationship =
+        relationshipFilter === "all" ||
+        (p.relationship ?? "").toLowerCase() === relationshipFilter.toLowerCase();
+      const matchesContact =
+        contactFilter === "all" ||
+        (p.preferredContact?.method ?? "").toLowerCase() === contactFilter.toLowerCase();
+      return matchesSearch && matchesClassification && matchesRelationship && matchesContact;
+    });
+  }, [people, searchTerm, classificationFilter, relationshipFilter, contactFilter]);
+
+  useEffect(() => {
+    if (!filteredPeople.some((p) => p.id === expandedPersonId)) {
+      setExpandedPersonId(null);
+      setEditingPersonId(null);
+    }
+  }, [filteredPeople, expandedPersonId]);
 
   function startEditing(person: Person) {
     setEditingPersonId(person.id);
@@ -99,6 +158,17 @@ export function ListView({
       };
     });
   }
+
+  const hasActiveFilters =
+    searchTerm.trim().length > 0 ||
+    classificationFilter !== "all" ||
+    relationshipFilter !== "all" ||
+    contactFilter !== "all";
+
+  const appliedFilterCount =
+    (classificationFilter !== "all" ? 1 : 0) +
+    (relationshipFilter !== "all" ? 1 : 0) +
+    (contactFilter !== "all" ? 1 : 0);
 
   if (isLoading) {
     return (
@@ -127,25 +197,129 @@ export function ListView({
 
       {isPeoplePage && people.length > 0 && (
         <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between bg-white border border-blue-100 rounded-2xl px-4 py-3 shadow-sm">
-            <div className="flex items-center gap-3">
-              <SparklesIcon className="w-5 h-5 text-blue-600" />
-              <div>
-                <div className="text-sm font-semibold text-gray-900">People orbit</div>
-                <div className="text-xs text-gray-500">
-                  Tap a card to unfold their story, flashbacks, and ways to reach them.
-                </div>
+          <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <MagnifyingGlassIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search by name or bio"
+                  className="w-full rounded-xl border border-gray-200 bg-white pl-9 pr-28 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
+                />
               </div>
+              <button
+                type="button"
+                onClick={() => setFiltersOpen((v) => !v)}
+                className={`relative inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold border transition-all ${
+                  filtersOpen ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
+                }`}
+                aria-expanded={filtersOpen}
+              >
+                <FunnelIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">Filters</span>
+                {appliedFilterCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] font-bold flex items-center justify-center shadow-sm">
+                    {appliedFilterCount}
+                  </span>
+                )}
+              </button>
             </div>
-            <div className="hidden md:flex items-center gap-2 text-xs text-gray-500">
-              <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 border border-gray-200">
-                <UserCircleIcon className="w-4 h-4 text-gray-600" />
-                {people.length} saved
+
+            {hasActiveFilters && (
+              <div className="flex flex-wrap items-center gap-2">
+                {classificationFilter !== "all" && (
+                  <button
+                    type="button"
+                    onClick={() => setClassificationFilter("all")}
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-100 text-xs font-semibold"
+                  >
+                    Circle: {classificationFilter}
+                    <XMarkIcon className="w-4 h-4" />
+                  </button>
+                )}
+                {relationshipFilter !== "all" && (
+                  <button
+                    type="button"
+                    onClick={() => setRelationshipFilter("all")}
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-semibold"
+                  >
+                    Relationship: {relationshipFilter}
+                    <XMarkIcon className="w-4 h-4" />
+                  </button>
+                )}
+                {contactFilter !== "all" && (
+                  <button
+                    type="button"
+                    onClick={() => setContactFilter("all")}
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 text-xs font-semibold"
+                  >
+                    Contact: {contactFilter}
+                    <XMarkIcon className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            )}
+
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-3 gap-2 transition-all duration-300 ease-out ${
+                filtersOpen ? "max-h-[260px] opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-1 overflow-hidden"
+              }`}
+              aria-hidden={!filtersOpen}
+            >
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-semibold text-gray-600 flex items-center gap-1">
+                  <FunnelIcon className="w-4 h-4 text-gray-500" />
+                  Circle
+                </label>
+                <select
+                  className="rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
+                  value={classificationFilter}
+                  onChange={(e) => setClassificationFilter(e.target.value)}
+                >
+                  <option value="all">All</option>
+                  {classificationOptions.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-semibold text-gray-600">Relationship</label>
+                <select
+                  className="rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
+                  value={relationshipFilter}
+                  onChange={(e) => setRelationshipFilter(e.target.value)}
+                >
+                  <option value="all">All</option>
+                  {relationshipOptions.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-semibold text-gray-600">Preferred contact</label>
+                <select
+                  className="rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
+                  value={contactFilter}
+                  onChange={(e) => setContactFilter(e.target.value)}
+                >
+                  <option value="all">All</option>
+                  {contactOptions.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
 
-          {people.map((p) => {
+          {filteredPeople.map((p) => {
             const expanded = expandedPersonId === p.id;
             const editing = editingPersonId === p.id;
             const initials = p.name
