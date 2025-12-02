@@ -17,7 +17,6 @@ interface SidebarProps {
   currentPage: Page;
   tooltip: Tooltip;
   onToggleSidebar: () => void;
-  onNewChat: () => void;
   onNavigation: (page: Page) => void;
   onShowTooltip: (text: string, e: React.MouseEvent<HTMLButtonElement>) => void;
   onHideTooltip: () => void;
@@ -29,8 +28,8 @@ const NAV_ITEMS: Array<{
   label: string;
   tooltip: string;
 }> = [
+  { page: "chat", icon: PlusIcon, label: "Chat", tooltip: "Open Chat" },
   { page: "memories", icon: ArchiveBoxIcon, label: "Memories", tooltip: "Memories" },
-  { page: "history", icon: ClockIcon, label: "Chat History", tooltip: "Chat History" },
   { page: "people", icon: UsersIcon, label: "People", tooltip: "People" },
   { page: "places", icon: MapPinIcon, label: "Places", tooltip: "Places" },
   { page: "birthdays", icon: CalendarDaysIcon, label: "Birthdays", tooltip: "Birthdays" },
@@ -147,27 +146,20 @@ export function Sidebar({
               )}
             </button>
 
-            <div className="flex-1">
-              {isOpen && (
-                <div>
-                  <div className="text-sm font-semibold text-gray-800">
-                    Memory Assist
+              <div className="flex-1">
+                {isOpen && (
+                  <div>
+                    <div className="text-sm font-semibold text-gray-800">
+                      Memory Assist
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Personal memory helper
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    Personal memory helper
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
           </div>
 
-          <button
-            onClick={onNewChat}
-            className="w-full flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            <PlusIcon className="w-5 h-5" />
-            {isOpen && <span>New Chat</span>}
-          </button>
         </div>
 
         {/* Primary nav items */}

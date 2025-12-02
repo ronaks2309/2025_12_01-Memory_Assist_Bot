@@ -21,7 +21,6 @@ export default function App() {
 
   const {
     memories,
-    chatHistory,
     people,
     places,
     birthdays,
@@ -86,11 +85,7 @@ export default function App() {
     }
   }
 
-  function newChat() {
-    setMessages([]);
-    setInput("");
-    handleNavigation("chat");
-  }
+  // Continuous chat: do not clear messages when navigating back to chat
 
   function showTooltip(
     text: string,
@@ -112,8 +107,6 @@ export default function App() {
 
   async function handleNavigation(page: Page) {
     setCurrentPage(page);
-    setMessages([]);
-    setInput("");
 
     try {
       await fetchPageData(page);
@@ -135,7 +128,6 @@ export default function App() {
         currentPage={currentPage}
         tooltip={tooltip}
         onToggleSidebar={() => setSidebarOpen((s) => !s)}
-        onNewChat={newChat}
         onNavigation={handleNavigation}
         onShowTooltip={showTooltip}
         onHideTooltip={hideTooltip}
@@ -162,7 +154,6 @@ export default function App() {
                 page={currentPage}
                 isLoading={isLoading}
                 memories={memories}
-                chatHistory={chatHistory}
                 people={people}
                 places={places}
                 birthdays={birthdays}

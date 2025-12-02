@@ -40,16 +40,7 @@ class Memory(BaseModel):
 class MemoriesList(BaseModel):
     memories: list[Memory]
 
-
-class ChatEntry(BaseModel):
-    id: int
-    title: str
-    date: str
-    message_count: int
-
-
-class ChatHistoryList(BaseModel):
-    entries: list[ChatEntry]
+# Chat history models removed — chat is now continuous in the frontend
 
 
 class Person(BaseModel):
@@ -113,14 +104,7 @@ async def get_memories():
     ])
 
 
-@app.get("/chat-history", response_model=ChatHistoryList)
-async def get_chat_history():
-    # Dummy chat history
-    return ChatHistoryList(entries=[
-        ChatEntry(id=1, title="Birthday Discussion", date="2025-11-28", message_count=12),
-        ChatEntry(id=2, title="Travel Plans", date="2025-11-25", message_count=8),
-        ChatEntry(id=3, title="Work Projects", date="2025-11-20", message_count=15),
-    ])
+# /chat-history endpoint removed (frontend no longer uses it)
 
 
 @app.get("/people", response_model=PeopleList)

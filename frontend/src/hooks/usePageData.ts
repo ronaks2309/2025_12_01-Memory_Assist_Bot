@@ -1,17 +1,9 @@
 import { useState, useCallback } from "react";
-import type {
-  Page,
-  Memory,
-  ChatEntry,
-  Person,
-  Place,
-  Birthday,
-} from "../types";
+import type { Page, Memory, Person, Place, Birthday } from "../types";
 import { BACKEND_URL } from "../utils/constants";
 
 export function usePageData() {
   const [memories, setMemories] = useState<Memory[]>([]);
-  const [chatHistory, setChatHistory] = useState<ChatEntry[]>([]);
   const [people, setPeople] = useState<Person[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [birthdays, setBirthdays] = useState<Birthday[]>([]);
@@ -29,9 +21,7 @@ export function usePageData() {
         case "memories":
           endpoint = "/memories";
           break;
-        case "history":
-          endpoint = "/chat-history";
-          break;
+        // history removed
         case "people":
           endpoint = "/people";
           break;
@@ -54,9 +44,7 @@ export function usePageData() {
         case "memories":
           setMemories(data.memories);
           break;
-        case "history":
-          setChatHistory(data.entries);
-          break;
+        // history removed
         case "people":
           setPeople(data.people);
           break;
@@ -77,7 +65,6 @@ export function usePageData() {
 
   return {
     memories,
-    chatHistory,
     people,
     places,
     birthdays,

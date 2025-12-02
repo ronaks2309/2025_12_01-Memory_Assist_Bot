@@ -5,7 +5,7 @@ export type Message = {
   timestamp: Date;
 };
 
-export type Page = "chat" | "memories" | "history" | "people" | "places" | "birthdays" | "settings" | "help";
+export type Page = "chat" | "memories" | "people" | "places" | "birthdays" | "settings" | "help";
 
 export type Tooltip = {
   text: string;
@@ -21,12 +21,7 @@ export type Memory = {
   created_at: string;
 };
 
-export type ChatEntry = {
-  id: number;
-  title: string;
-  date: string;
-  message_count: number;
-};
+// Chat history removed — Chat is continuous within the chat view
 
 export type Person = {
   id: number;
