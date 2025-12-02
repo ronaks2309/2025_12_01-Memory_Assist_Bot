@@ -1,0 +1,75 @@
+## Enhance the "People" section 
+- Add profile picture 
+- Ability to View more details about each the person   
+    - Bio
+    - Contact Info (preferred method of communication)
+    - Bday
+    - Age
+    - Classification of the person as per the Concentric Cirles of Friends - 1. BFFs, 2. Close Friend, 3. Fun Friends, 4. Neighbours, 5. Acquantances, 6. Blacklisted
+    - Family members 
+    - Likes/Dislikes
+    - Recent Conversations
+    - Links to social media accounts
+    - Recent feed from Email, SMS, Whatsapp, Instagram, Facebook etc.
+    - Add a horizontal flashback reel of all pictures / memories with this person (similar to the one in the Overview page, but this one will be specifically filtered on this person)
+- Think like a designer, and organize this section attractively, very catchy, easy readable, enjoyable.  
+- And finally, Provide option to an "Edit" the details if user wants to. Go! 
+  
+ 
+
+## Add a Searach functionality 
+- To the People Tab
+- Actually to the overal application
+
+## Add a "Feeds" group to the side menu bar (Similar to the Insigts group)
+- Capture feeds from Emails, SMS, Whatsapp, Facebook, Instagram etc. 
+- Feed from live recordings / audio / video 
+- These could be sources for memories 
+
+## Add a floating Chat icon 
+- So that Chat can be accessed from anywhere 
+- Chat will have context of the current page
+
+## Make entities/keywords/events clickable 
+- Names of People, Places, (maybe Dates) must be made clickable
+- Whereever they appear in the App. 
+- User can click, and go to the details page of that Entity. 
+
+## Add "Events" as item to side menu bar
+
+## Add detailed filters to the Chat/Retrieve/Ask section
+- Use case 1: Let's say you recorded a audio of a 30 min presentation. 
+    - This went into the memory
+    - Now you only want to filter to that convo. 
+- Use case 2: Let's say you want to retrieve only about a particular person 
+- The "Ask" should probably be a Sidebar menu item in-itself. 
+- With detailed Entity / Metadata filters for Person, Places, Events, Sources, Date Ranges, Community.
+
+
+## Finally add a Knowledge Graph 
+- When the filter is selected, the scope of retrieval will be limited to that particular "Sub-Graph" or "Community"
+
+## Add a Family Tree feature 
+- Use case: You want to see a complete family tree at a glance
+- Similar to org structure. 
+
+## Open Questions Section 
+- If Chatbot has a doubt, or conflicts in the memroies, 
+- It will create some form of an "interrupt" and ask the user to resolve. 
+- This will be a section in itself , but can also surface as a header in Overview or other pages as banner
+
+## Create a view of Concentric Circles of Friendship
+- https://www.intelligentemotions.com/blog/concentric-circles-of-friendship
+
+## Custom Lists - 
+- Users can create custom lists / insights 
+- For ex. Add a Grocery item list
+- This will appear in the "Insights" group. 
+- User can add items to this list simply by talking. 
+- This can be the beginning of User level control of the components. 
+- Expand this thinking to AI driven UI (maybe later)
+
+## Add an Inbox/Review section 
+- For any inbound emails, the AI can draft replies and keep it in Inbox for user to review / approve. 
+
+
