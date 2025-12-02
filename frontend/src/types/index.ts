@@ -5,7 +5,7 @@ export type Message = {
   timestamp: string;
 };
 
-export type Page = "chat" | "memories" | "people" | "places" | "birthdays" | "journals" | "settings" | "help";
+export type Page = "overview" | "chat" | "memories" | "people" | "places" | "birthdays" | "journals" | "settings" | "help";
 
 export type Tooltip = {
   text: string;

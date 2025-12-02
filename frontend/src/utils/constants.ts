@@ -1,6 +1,7 @@
 import type { Page } from "../types";
 
 export const PAGE_TITLES: Record<Page, string> = {
+  overview: "Overview",
   chat: "Memory Assistant",
   memories: "Memories",
   people: "People",
@@ -12,6 +13,7 @@ export const PAGE_TITLES: Record<Page, string> = {
 };
 
 export const PAGE_DESCRIPTIONS: Record<Page, string> = {
+  overview: "A quick look at your day and trends",
   chat: "Your AI-powered memory companion",
   memories: "All your saved memories",
   people: "Important people in your life",

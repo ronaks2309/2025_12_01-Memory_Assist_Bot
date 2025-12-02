@@ -11,7 +11,7 @@ export function usePageData() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPageData = useCallback(async (page: Page) => {
-    if (page === "chat" || page === "settings" || page === "help") {
+    if (page === "overview" || page === "chat" || page === "settings" || page === "help") {
       return; // No data to fetch for these pages
     }
 

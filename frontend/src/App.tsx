@@ -6,6 +6,7 @@ import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
 import { ChatView } from "./components/ChatView";
 import { ListView } from "./components/ListView";
+import { Overview } from "./components/Overview";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -271,7 +272,9 @@ export default function App() {
           onMenuClick={() => setSidebarOpen(true)}
         />
 
-        {currentPage === "chat" ? (
+        {currentPage === "overview" ? (
+          <Overview />
+        ) : currentPage === "chat" ? (
           <ChatView
             messages={messages}
             conversations={conversations}

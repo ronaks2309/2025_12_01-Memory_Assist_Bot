@@ -9,6 +9,7 @@ import {
   MapPinIcon,
   CalendarDaysIcon,
   BookOpenIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 import type { Page, Tooltip } from "../types";
 
@@ -28,6 +29,7 @@ const PRIMARY_NAV: Array<{
   label: string;
   tooltip: string;
 }> = [
+  { page: "overview", icon: SparklesIcon, label: "Overview", tooltip: "Start here" },
   { page: "chat", icon: ChatBubbleLeftRightIcon, label: "Chat", tooltip: "Open Chat" },
   { page: "journals", icon: BookOpenIcon, label: "Diary", tooltip: "Your diary & notes" },
 ];
