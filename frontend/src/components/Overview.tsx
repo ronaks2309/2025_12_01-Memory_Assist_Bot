@@ -114,7 +114,7 @@ export function Overview() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 px-6 py-4 bg-gradient-to-b from-white via-blue-50/40 to-white">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
           <div className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full w-fit">

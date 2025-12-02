@@ -7,6 +7,7 @@ import { Header } from "./components/Header";
 import { ChatView } from "./components/ChatView";
 import { ListView } from "./components/ListView";
 import { Overview } from "./components/Overview";
+import { PageContainer } from "./components/PageContainer";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -273,7 +274,9 @@ export default function App() {
         />
 
         {currentPage === "overview" ? (
-          <Overview />
+          <PageContainer className="bg-gradient-to-b from-white via-blue-50/40 to-white">
+            <Overview />
+          </PageContainer>
         ) : currentPage === "chat" ? (
           <ChatView
             messages={messages}
@@ -290,20 +293,18 @@ export default function App() {
             onNewConversation={handleNewConversation}
           />
         ) : (
-          <>
-            <section className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
-              <ListView
-                page={currentPage}
-                isLoading={isLoading}
-                memories={memories}
-                people={people}
-                places={places}
-                birthdays={birthdays}
-                journals={journals}
-                onAddJournal={addJournalEntry}
-              />
-            </section>
-          </>
+          <PageContainer className="flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
+            <ListView
+              page={currentPage}
+              isLoading={isLoading}
+              memories={memories}
+              people={people}
+              places={places}
+              birthdays={birthdays}
+              journals={journals}
+              onAddJournal={addJournalEntry}
+            />
+          </PageContainer>
         )}
       </main>
     </div>
