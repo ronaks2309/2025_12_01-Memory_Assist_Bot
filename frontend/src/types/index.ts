@@ -18,6 +18,7 @@ export type Page =
   | "people"
   | "places"
   | "birthdays"
+  | "my-circle"
   | "journals"
   | "settings"
   | "help"

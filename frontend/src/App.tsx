@@ -9,6 +9,7 @@ import { ListView } from "./components/ListView";
 import { Overview } from "./components/Overview";
 import { PageContainer } from "./components/PageContainer";
 import { FeedsView } from "./components/FeedsView";
+import { MyCircle } from "./components/MyCircle";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -303,6 +304,10 @@ export default function App() {
             onSelectConversation={handleSelectConversation}
             onNewConversation={handleNewConversation}
           />
+        ) : currentPage === "my-circle" ? (
+          <PageContainer className="flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
+            <MyCircle />
+          </PageContainer>
         ) : feedPageSelected ? (
           <PageContainer className="flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
             <FeedsView page={currentPage} />

@@ -117,6 +117,7 @@ export function usePageData() {
       page === "chat" ||
       page === "settings" ||
       page === "help" ||
+      page === "my-circle" ||
       FEED_PAGES.includes(page as (typeof FEED_PAGES)[number])
     ) {
       return; // No data to fetch for these pages

@@ -48,6 +48,7 @@ const DERIVED_NAV: Array<{
   { page: "people", icon: UsersIcon, label: "People", tooltip: "People" },
   { page: "places", icon: MapPinIcon, label: "Places", tooltip: "Places" },
   { page: "birthdays", icon: CalendarDaysIcon, label: "Birthdays", tooltip: "Birthdays" },
+  { page: "my-circle", icon: SparklesIcon, label: "My Circle", tooltip: "Your concentric circles" },
 ];
 
 const SECONDARY_ITEMS: Array<{
