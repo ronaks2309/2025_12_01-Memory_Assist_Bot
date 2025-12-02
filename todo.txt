@@ -34,8 +34,6 @@
 - Whereever they appear in the App. 
 - User can click, and go to the details page of that Entity. 
 
-## Add "Events" as item to side menu bar
-
 ## Add detailed filters to the Chat/Retrieve/Ask section
 - Use case 1: Let's say you recorded a audio of a 30 min presentation. 
     - This went into the memory
@@ -68,7 +66,23 @@
 - This can be the beginning of User level control of the components. 
 - Expand this thinking to AI driven UI (maybe later)
 
-## Add an Inbox/Review section 
+## Add a "Actions/Review" group 
 - For any inbound emails, the AI can draft replies and keep it in Inbox for user to review / approve. 
+- Base this on the Langgraph Email / Ambient Agent tutorial.
+
+## Tracing of factoids
+- Every piece of fact in the app, must be traced back to the input covo/feed. 
+- Each Factoiod must have a small ? icon on hover. 
+- On clicking, it will open the a side panel, which will show all the details of how it was inferred
+- History / timeline of how it was modified. 
+
+## Smart filtering inputs
+- Advanced users can use smart commands while chatting to filter the reteirvals 
+For ex.Input:  /person = Emma : What should I buy for her?
+
+## "Capture" group
+- On the Side menu - grop the following into Capture 
+- Diary, Chat, Audio, Video, Upload. 
+- Also add a floating + button - and it will show these options. 
 
 

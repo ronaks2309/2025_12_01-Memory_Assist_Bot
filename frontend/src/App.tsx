@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Conversation, Message, Page, Tooltip } from "./types";
-import { BACKEND_URL } from "./utils/constants";
+import type { Conversation, FeedPage, Message, Page, Tooltip } from "./types";
+import { BACKEND_URL, FEED_PAGES } from "./utils/constants";
 import { usePageData } from "./hooks/usePageData";
 import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
@@ -8,6 +8,7 @@ import { ChatView } from "./components/ChatView";
 import { ListView } from "./components/ListView";
 import { Overview } from "./components/Overview";
 import { PageContainer } from "./components/PageContainer";
+import { FeedsView } from "./components/FeedsView";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -37,6 +38,12 @@ export default function App() {
   } = usePageData();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const isFeedPage = useCallback(
+    (page: Page): page is FeedPage =>
+      FEED_PAGES.includes(page as FeedPage),
+    []
+  );
 
   const fetchMessages = useCallback(
     async (conversationId: number, opts: { silent?: boolean } = {}) => {
@@ -229,7 +236,9 @@ export default function App() {
     setCurrentPage(page);
 
     try {
-      await fetchPageData(page);
+      if (!isFeedPage(page)) {
+        await fetchPageData(page);
+      }
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error("Error fetching data:", err);
@@ -254,6 +263,8 @@ export default function App() {
       console.error("Error starting new conversation:", err);
     }
   }
+
+  const feedPageSelected = isFeedPage(currentPage);
 
   return (
     <div className="h-screen flex bg-white">
@@ -292,6 +303,10 @@ export default function App() {
             onSelectConversation={handleSelectConversation}
             onNewConversation={handleNewConversation}
           />
+        ) : feedPageSelected ? (
+          <PageContainer className="flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
+            <FeedsView page={currentPage} />
+          </PageContainer>
         ) : (
           <PageContainer className="flex flex-col gap-4 bg-gradient-to-b from-blue-50/30 to-white">
             <ListView

@@ -10,6 +10,10 @@ import {
   CalendarDaysIcon,
   BookOpenIcon,
   SparklesIcon,
+  EnvelopeIcon,
+  ChatBubbleLeftEllipsisIcon,
+  GlobeAltIcon,
+  MicrophoneIcon,
 } from "@heroicons/react/24/outline";
 import type { Page, Tooltip } from "../types";
 
@@ -54,6 +58,18 @@ const SECONDARY_ITEMS: Array<{
 }> = [
   { page: "settings", icon: Cog6ToothIcon, label: "Settings", tooltip: "Settings" },
   { page: "help", icon: QuestionMarkCircleIcon, label: "Help & FAQ", tooltip: "Help & FAQ" },
+];
+
+const FEED_NAV: Array<{
+  page: Page;
+  icon: React.ComponentType<{ className: string }>;
+  label: string;
+  tooltip: string;
+}> = [
+  { page: "feeds-email", icon: EnvelopeIcon, label: "Email feeds", tooltip: "Ingest email threads and attachments" },
+  { page: "feeds-messages", icon: ChatBubbleLeftEllipsisIcon, label: "Messages", tooltip: "SMS and WhatsApp capture" },
+  { page: "feeds-social", icon: GlobeAltIcon, label: "Social", tooltip: "Facebook and Instagram pulls" },
+  { page: "feeds-live", icon: MicrophoneIcon, label: "Live capture", tooltip: "Audio or video recordings" },
 ];
 
 function NavButton({
@@ -195,6 +211,28 @@ export function Sidebar({
           )}
 
           {DERIVED_NAV.map((item) => (
+            <NavButton
+              key={item.page}
+              page={item.page}
+              icon={item.icon}
+              label={item.label}
+              tooltip={item.tooltip}
+              isOpen={isOpen}
+              isActive={currentPage === item.page}
+              onNavigate={onNavigation}
+              onShowTooltip={onShowTooltip}
+              onHideTooltip={onHideTooltip}
+            />
+          ))}
+
+          <div className="border-t border-gray-200 mx-1"></div>
+          {isOpen && (
+            <div className="text-[11px] uppercase tracking-wide text-gray-400 px-3">
+              Feeds
+            </div>
+          )}
+
+          {FEED_NAV.map((item) => (
             <NavButton
               key={item.page}
               page={item.page}

@@ -1,4 +1,4 @@
-import type { Page } from "../types";
+import type { FeedPage, Page } from "../types";
 
 export const PAGE_TITLES: Record<Page, string> = {
   overview: "Overview",
@@ -10,6 +10,10 @@ export const PAGE_TITLES: Record<Page, string> = {
   journals: "Diary",
   settings: "Settings",
   help: "Help & FAQ",
+  "feeds-email": "Email feeds",
+  "feeds-messages": "Messages feeds",
+  "feeds-social": "Social feeds",
+  "feeds-live": "Live capture",
 };
 
 export const PAGE_DESCRIPTIONS: Record<Page, string> = {
@@ -22,6 +26,17 @@ export const PAGE_DESCRIPTIONS: Record<Page, string> = {
   journals: "Capture daily notes, thoughts, and reflections",
   settings: "Customize your experience",
   help: "Get help and support",
+  "feeds-email": "Capture inbox threads and attachments as memory-ready content",
+  "feeds-messages": "Keep SMS and WhatsApp conversations searchable",
+  "feeds-social": "Bring Facebook and Instagram posts into your vault",
+  "feeds-live": "Log live audio or video recordings for later parsing",
 };
 
 export const BACKEND_URL = "http://127.0.0.1:8001";
+
+export const FEED_PAGES: FeedPage[] = [
+  "feeds-email",
+  "feeds-messages",
+  "feeds-social",
+  "feeds-live",
+];

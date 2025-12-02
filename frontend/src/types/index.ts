@@ -5,6 +5,12 @@ export type Message = {
   timestamp: string;
 };
 
+export type FeedPage =
+  | "feeds-email"
+  | "feeds-messages"
+  | "feeds-social"
+  | "feeds-live";
+
 export type Page =
   | "overview"
   | "chat"
@@ -14,7 +20,8 @@ export type Page =
   | "birthdays"
   | "journals"
   | "settings"
-  | "help";
+  | "help"
+  | FeedPage;
 
 export type Tooltip = {
   text: string;

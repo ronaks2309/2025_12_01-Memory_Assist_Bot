@@ -7,7 +7,7 @@ import type {
   Birthday,
   JournalEntry,
 } from "../types";
-import { BACKEND_URL } from "../utils/constants";
+import { BACKEND_URL, FEED_PAGES } from "../utils/constants";
 
 const PERSON_PROFILES: Record<string, Partial<Person>> = {
   "Sarah Johnson": {
@@ -112,7 +112,13 @@ export function usePageData() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPageData = useCallback(async (page: Page) => {
-    if (page === "overview" || page === "chat" || page === "settings" || page === "help") {
+    if (
+      page === "overview" ||
+      page === "chat" ||
+      page === "settings" ||
+      page === "help" ||
+      FEED_PAGES.includes(page as (typeof FEED_PAGES)[number])
+    ) {
       return; // No data to fetch for these pages
     }
 

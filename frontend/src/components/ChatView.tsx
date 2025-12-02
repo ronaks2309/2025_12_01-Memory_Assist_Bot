@@ -20,7 +20,7 @@ interface ChatViewProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onSelectConversation: (conversationId: number) => void;
   onNewConversation: () => void;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement | null>;
 }
 
 export function ChatView({
