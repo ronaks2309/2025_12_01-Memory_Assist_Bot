@@ -2,7 +2,7 @@ export type Message = {
   id: number;
   role: "user" | "assistant";
   content: string;
-  timestamp: Date;
+  timestamp: string;
 };
 
 export type Page = "chat" | "memories" | "people" | "places" | "birthdays" | "settings" | "help";
@@ -42,4 +42,10 @@ export type Birthday = {
   name: string;
   date: string;
   days_until: number;
+};
+
+export type Conversation = {
+  id: number;
+  title: string | null;
+  created_at: string;
 };
