@@ -15,14 +15,13 @@
 - Think like a designer, and organize this section attractively, very catchy, easy readable, enjoyable.  
 - And finally, Provide option to an "Edit" the details if user wants to. Go! 
   
- 
 
 ## Add a Searach functionality 
 - To the People Tab
 - Actually to the overal application
 
 ## Add a "Feeds" group to the side menu bar (Similar to the Insigts group)
-- Capture feeds from Emails, SMS, Whatsapp, Facebook, Instagram etc. 
+- In the group Capture feeds from Emails, SMS, Whatsapp, Facebook, Instagram etc. 
 - Feed from live recordings / audio / video 
 - These could be sources for memories 
 
