@@ -5,7 +5,16 @@ export type Message = {
   timestamp: string;
 };
 
-export type Page = "overview" | "chat" | "memories" | "people" | "places" | "birthdays" | "journals" | "settings" | "help";
+export type Page =
+  | "overview"
+  | "chat"
+  | "memories"
+  | "people"
+  | "places"
+  | "birthdays"
+  | "journals"
+  | "settings"
+  | "help";
 
 export type Tooltip = {
   text: string;
@@ -21,13 +30,64 @@ export type Memory = {
   created_at: string;
 };
 
-// Chat history removed — Chat is continuous within the chat view
+// Chat history removed - Chat is continuous within the chat view
+
+export type PersonContact = {
+  method: string;
+  value: string;
+  note?: string;
+};
+
+export type PersonSocial = {
+  platform: string;
+  handle: string;
+  url?: string;
+};
+
+export type PersonStory = {
+  title: string;
+  date: string;
+  mood: string;
+  image: string;
+};
+
+export type PersonFeedItem = {
+  source: string;
+  title: string;
+  time: string;
+};
+
+export type PersonConversation = {
+  snippet: string;
+  time: string;
+  channel: string;
+};
 
 export type Person = {
   id: number;
   name: string;
   relationship: string;
   birthday: string;
+  age?: number;
+  classification?:
+    | "BFFs"
+    | "Close Friend"
+    | "Fun Friends"
+    | "Neighbours"
+    | "Acquantances"
+    | "Blacklisted"
+    | string;
+  bio?: string;
+  headline?: string;
+  avatarColor?: string;
+  preferredContact?: PersonContact;
+  family?: string[];
+  likes?: string[];
+  dislikes?: string[];
+  recentConversations?: PersonConversation[];
+  socialLinks?: PersonSocial[];
+  feed?: PersonFeedItem[];
+  reel?: PersonStory[];
 };
 
 export type Place = {
