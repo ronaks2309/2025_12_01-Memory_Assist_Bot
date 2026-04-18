@@ -7,6 +7,11 @@ A small demo app (FastAPI backend + React + Vite frontend) for a personal "memor
 - Backend: `backend/main.py` — FastAPI service exposing chat and conversation endpoints, plus demo endpoints that return static memories/people/places/birthdays. Conversations and messages are persisted to `backend/data.db` (SQLite) created by the app.
 - Frontend: `frontend/` — Vite + React application (see `frontend/src/App.tsx`) that drives the UI: chat, overview, feeds, lists, and navigation. Key components live in `frontend/src/components/` (e.g. `ChatView.tsx`, `Sidebar.tsx`).
 
+## Live Demo
+
+- **Frontend**: https://2025-12-01-memory-assist-bot.vercel.app/
+- **Backend API**: https://two025-12-01-memory-assist-bot.onrender.com/ (docs at /docs)
+
 ## Notable Endpoints
 
 - `POST /chat` — Accepts `{ message, conversation_id? }`, saves user + assistant messages to the DB, and returns a simple demo reply.
