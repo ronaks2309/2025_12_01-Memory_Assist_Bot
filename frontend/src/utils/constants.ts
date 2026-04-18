@@ -34,7 +34,8 @@ export const PAGE_DESCRIPTIONS: Record<Page, string> = {
   "feeds-live": "Log live audio or video recordings for later parsing",
 };
 
-export const BACKEND_URL = "http://127.0.0.1:8001";
+// Use Vite env var when deployed (Vercel). Fallback to local backend for dev.
+export const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL as string) || "http://127.0.0.1:8001";
 
 export const FEED_PAGES: FeedPage[] = [
   "feeds-email",
